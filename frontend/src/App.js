@@ -13,12 +13,10 @@ function App() {
    
     <Routes>
     <Route exact path="/" element={<Search/>}/>
-    
-    </Routes>
-    
-    <Routes>
     <Route exact path="/results" element={<Results/>}/>
     </Routes>
+ 
+    
     
     </Router>
       

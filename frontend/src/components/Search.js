@@ -1,17 +1,14 @@
 import React from "react";
 import "./Search.css";
 import Cookies from 'universal-cookie';
+
 import {useState} from 'react';
 const cookies = new Cookies();
 
 function gopath(path){
     window.location = window.location.origin + path
   }
-  async function getSearch(query){
-   return (fetch('http://localhost:8983/solr/netflix_core/select?indent=true&json={"query":{"dismax":{"df":"title"%2C"query":"'+query+'"}}}&q.op=OR&q=*:*', {method:"GET",
-    mode: 'no-cors'
-}).then(response => response.json()))
-    }
+
   
 async function SearchByQuery(){
 
@@ -27,11 +24,9 @@ async function SearchByQuery(){
 
         chain = `${chain} `+`${c[i]} `;
         cookies.set("busqueda_limpia", chain)
-    }
-    let result= await getSearch(cookies.get("busqueda_limpia"))
-    
-      cookies.set ("ids",result )
 
+    }
+    gopath("/results")
 }
 function Search(){
 
