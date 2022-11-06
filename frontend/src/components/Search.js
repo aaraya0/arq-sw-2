@@ -13,11 +13,24 @@ function gopath(path){
 }).then(response => response.json()))
     }
   
-async function SearchByQuery(message){
+async function SearchByQuery(){
 
-    let result= await getSearch(message)
+    let current= cookies.get('busqueda')
+    let chain=''
+    let a= current.split("?")
+    let item = a[1];
+    let b=item.split("=")
+    item=b[1]
+    let c= item.split("+")
+
+    for (let i = 0; i < c.length; i++){
+
+        chain = `${chain} `+`${c[i]} `;
+        cookies.set("busqueda_limpia", chain)
+    }
+    let result= await getSearch(cookies.get("busqueda_limpia"))
     
-      cookies.set ("ids",`${result.title},` ,'/' )
+      cookies.set ("ids",result )
 
 }
 function Search(){
@@ -30,9 +43,9 @@ const renderForm = (
   <form method="get" action="">
     <div class="tb">
       <div class="td">
-        <input type="text" id="search_query" placeholder="Buscar" required/></div>
+        <input type="text" id="search_query" placeholder="Buscar" name="search" required /></div>
       <div class="td" id="s-cover">
-      <button  id="search_button" onClick={SearchByQuery(document.forms[0].value)} type="input">
+      <button  id="search_button" onClick={SearchByQuery(cookies.set("busqueda", window.location.search))} type="input">
           <div id="s-circle"></div>
           <span></span>
         </button>
