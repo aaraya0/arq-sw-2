@@ -84,7 +84,12 @@ func (repo *RepositoryMongoDB) Get(id string) (dtos.ItemDTO, e.ApiError) {
 
 func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiError) {
 	result, err := repo.Database.Collection(repo.Collection).InsertOne(context.TODO(), model.Item{
-		Titulo: item.Titulo,
+		Titulo:      item.Titulo,
+		Descripcion: item.Descripcion,
+		Ciudad:      item.Ciudad,
+		Estado:      item.Estado,
+		Imagen:      item.Imagen,
+		Vendedor:    item.Vendedor,
 	})
 	item.Id = fmt.Sprintf(result.InsertedID.(primitive.ObjectID).Hex())
 	conn, err := amqp.Dial("amqp://user:password@localhost:5672/")
@@ -109,7 +114,6 @@ func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiErr
 	if err != nil {
 		return dtos.ItemDTO{}, e.NewInternalServerApiError(fmt.Sprintf("error inserting item %s", item.Id), err)
 	}
-	go ConsumerSolr(body)
-	return item, nil
 
+	return item, nil
 }

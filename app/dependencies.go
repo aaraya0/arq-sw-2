@@ -15,9 +15,9 @@ func BuildDependencies() *Dependencies {
 	//ccache := repositories.NewCCache(1000, 100, 30*time.Second)
 	memcached := repositories.NewMemcached("localhost", 11211)
 	mongo := repositories.NewMongoDB("localhost", 27017, "publicaciones")
-
+	solr := repositories.NewSolrClient("localhost", 8983, "publicaciones")
 	// Services
-	service := service.NewServiceImpl(memcached, mongo)
+	service := service.NewServiceImpl(memcached, mongo, solr)
 
 	// Controllers
 	controller := controllers.NewController(service)

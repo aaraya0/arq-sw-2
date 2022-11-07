@@ -12,17 +12,20 @@ import (
 type ServiceImpl struct {
 	distCache repositories.Repository
 	db        repositories.Repository
+	solr      *repositories.SolrClient
 }
 
 func NewServiceImpl(
 
 	distCache repositories.Repository,
 	db repositories.Repository,
+	solr *repositories.SolrClient,
 ) *ServiceImpl {
 	return &ServiceImpl{
 
 		distCache: distCache,
 		db:        db,
+		solr:      solr,
 	}
 }
 
@@ -48,7 +51,7 @@ func (serv *ServiceImpl) Get(id string) (dtos.ItemDTO, e.ApiError) {
 				return dtos.ItemDTO{}, apiErr
 			}
 		} else {
-			source = "db"
+
 			defer func() {
 				if _, apiErr := serv.distCache.Insert(item); apiErr != nil {
 					fmt.Println(fmt.Sprintf("Error trying to save item in distCache %v", apiErr))
@@ -58,7 +61,7 @@ func (serv *ServiceImpl) Get(id string) (dtos.ItemDTO, e.ApiError) {
 		}
 
 	}
-
+	source = "db"
 	fmt.Println(fmt.Sprintf("Obtained item from %s!", source))
 	return item, nil
 }
@@ -77,6 +80,13 @@ func (serv *ServiceImpl) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiError) {
 		return result, nil
 	}
 	fmt.Println(fmt.Sprintf("Inserted item in distCache: %v", result))
+
+	apiErr2 := serv.solr.Update()
+	if apiErr2 != nil {
+		fmt.Println(fmt.Sprintf("Error inserting item in solr: %v", apiErr2))
+		return result, nil
+	}
+	fmt.Println(fmt.Sprintf("Inserted item in solr: %v", result))
 
 	return result, nil
 }
