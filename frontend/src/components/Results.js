@@ -12,9 +12,9 @@ async function getSearch(query){
 async function getStuff(){
     let items= await getSearch(cookies.get("busqueda_limpia"))
     return(
-        <div>
+    <div>
     {items.map((item)=>
-    <div>{item.docs.title}</div>
+    <div>{item.title}</div>
     )}</div>)
 }
    

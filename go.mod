@@ -7,6 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/json-iterator/go v1.1.12
 	github.com/rabbitmq/amqp091-go v1.5.0
+	github.com/stevenferrer/solr-go v0.3.2
 	go.mongodb.org/mongo-driver v1.10.3
 )
 

@@ -94,7 +94,7 @@ func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiErr
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 	q, err := ch.QueueDeclare(
-		"COLA", false, false, false, false, nil,
+		"COLA2", false, false, false, false, nil,
 	)
 	failOnError(err, "Failed to declare a queue")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -109,6 +109,7 @@ func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiErr
 	if err != nil {
 		return dtos.ItemDTO{}, e.NewInternalServerApiError(fmt.Sprintf("error inserting item %s", item.Id), err)
 	}
-	Consume()
+	go ConsumerSolr(body)
 	return item, nil
+
 }
