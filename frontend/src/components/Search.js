@@ -2,7 +2,6 @@ import React from "react";
 import "./Search.css";
 import Cookies from 'universal-cookie';
 
-import {useState} from 'react';
 const cookies = new Cookies();
 
 function gopath(path){
@@ -32,7 +31,7 @@ function Search(){
 
    
   
-   //var {query} = document.forms[0];
+  
 const renderForm = (
     <div id="cover">
   <form method="get" action="">

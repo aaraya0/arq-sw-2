@@ -8,4 +8,5 @@ import (
 type Service interface {
 	Get(id string) (dtos.ItemDTO, e.ApiError)
 	Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiError)
+	GetQuery(q string) (dtos.ItemsDTO, e.ApiError)
 }

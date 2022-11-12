@@ -10,3 +10,4 @@ type ItemDTO struct {
 	Vendedor    string `json:"seller"`
 	//Precio int `json:"price"`
 }
+type ItemsDTO []ItemDTO

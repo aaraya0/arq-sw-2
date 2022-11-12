@@ -90,3 +90,13 @@ func (serv *ServiceImpl) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiError) {
 
 	return result, nil
 }
+
+func (serv *ServiceImpl) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
+	var itemsDto dtos.ItemsDTO
+
+	itemsDto, err := serv.solr.GetQuery(query)
+	if err != nil {
+		return itemsDto, e.NewBadRequestApiError("Solr failed")
+	}
+	return itemsDto, nil
+}

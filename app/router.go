@@ -11,6 +11,7 @@ func MapUrls(router *gin.Engine, dependencies *Dependencies) {
 
 	router.GET("/items/:id", dependencies.ItemController.Get)
 	router.POST("/items", dependencies.ItemController.Insert)
+	router.GET("/search/:searchQuery", dependencies.ItemController.GetQuery)
 
 	fmt.Println("Finishing mappings configurations")
 }
