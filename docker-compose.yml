@@ -44,4 +44,11 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - publicaciones
+  lbsolr:
+    build: ./lb
+    depends_on:
+      solr:
+        condition: service_started
+    ports:
+      - "80:80"
   
