@@ -66,3 +66,26 @@ func (ctrl *Controller) GetQuery(c *gin.Context) {
 	c.JSON(http.StatusOK, itemsDto)
 	return
 }
+
+func (ctrl *Controller) QueueItems(c *gin.Context) {
+	var itemsDto dtos.ItemsDTO
+	err := c.BindJSON(&itemsDto)
+
+	// Error Parsing json param
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	er := ctrl.service.QueueItems(itemsDto)
+
+	// Error Queueing
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusCreated, itemsDto)
+	return
+}

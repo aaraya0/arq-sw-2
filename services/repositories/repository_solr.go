@@ -42,18 +42,17 @@ func NewSolrClient(host string, port int, collection string) *SolrClient {
 func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	var response dtos.SolrResponseDto
 	var itemsDto dtos.ItemsDTO
-	url := "http://localhost:8983/solr/publicaciones/select?" + query + "=&defType=lucene&indent=true&q.op=OR&q=*%3A*"
+	url := "http://localhost:8983/solr/publicaciones/select?" + query + "=&defType=lucene&omitHeader=true&indent=true&q.op=OR&q=*%3A*"
 	fmt.Println(url)
 	q, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 		return itemsDto, e.NewInternalServerApiError("error hacendo query a solr", err)
 	}
-
 	var body []byte
 	q.Body.Read(body)
 	err = json.Unmarshal(body, &response)
-	fmt.Println(err)
+
 	if err != nil {
 		fmt.Println(err)
 		return itemsDto, e.NewInternalServerApiError("error in unmarshal", err)
@@ -61,7 +60,7 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	}
 
 	itemsDto = response.Response.Docs
-	log.Println(err)
+
 	return itemsDto, nil
 
 }

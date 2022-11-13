@@ -96,7 +96,22 @@ func (serv *ServiceImpl) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 
 	itemsDto, err := serv.solr.GetQuery(query)
 	if err != nil {
-		return itemsDto, e.NewBadRequestApiError("Solr failed")
+		return itemsDto, e.NewInternalServerApiError("Falla Solr", err)
 	}
 	return itemsDto, nil
+}
+
+func (s *ServiceImpl) QueueItems(items dtos.ItemsDTO) e.ApiError {
+	for i := range items {
+		var item dtos.ItemDTO
+		item = items[i]
+		go func() {
+			_, err := s.Insert(item)
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(err)
+		}()
+	}
+	return nil
 }
