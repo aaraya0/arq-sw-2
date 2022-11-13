@@ -11,13 +11,9 @@ async function getSearch(query){
 
 async function getStuff(){
     let items= await getSearch(cookies.get("busqueda_limpia"))
-    let items2= toString(items)
-    items2= items2.slice(0, -1)
-    items2= items2.split('"docs:')
-    let items3= '{"docs":'+ items2[1]
-    let obj = JSON.parse(items3);
+    console.log(items)
            
-            return obj
+            return items
 }
    
 
@@ -33,7 +29,7 @@ class Results extends React.Component{
         super(props);
         this.state = {
         items: [],
-        DataisLoaded: false
+        DataisLoaded: true
         };
         }
        
