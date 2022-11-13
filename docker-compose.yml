@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+    ports:
+      - "27017:27017"
+
+  memcached:
+    container_name: cache
+    image: memcached:1.6.16
+
+    ports:
+      - "11211:11211"
+
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "5672:5672"
+    volumes:
+      - ./init/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./init/definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  solr:
+    container_name: solr
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./managed-schema:/opt/solr/server/solr/configsets/_default/conf/managed-schema
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - publicaciones
+  
