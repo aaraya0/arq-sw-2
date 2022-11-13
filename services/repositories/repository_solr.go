@@ -52,8 +52,8 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 
 	var body []byte
 	q.Body.Read(body)
-	err = json.Unmarshal(body, &itemsDto)
-
+	err = json.Unmarshal(body, &response)
+	fmt.Println(err)
 	if err != nil {
 		fmt.Println(err)
 		return itemsDto, e.NewInternalServerApiError("error in unmarshal", err)
@@ -61,7 +61,7 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	}
 
 	itemsDto = response.Response.Docs
-	fmt.Println(itemsDto)
+	log.Println(err)
 	return itemsDto, nil
 
 }
