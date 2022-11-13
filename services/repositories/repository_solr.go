@@ -46,7 +46,8 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	fmt.Println(url)
 	q, err := http.Get(url)
 	if err != nil {
-		return itemsDto, e.NewBadRequestApiError("error getting from solr")
+		fmt.Println(err)
+		return itemsDto, e.NewInternalServerApiError("error hacendo query a solr", err)
 	}
 
 	var body []byte
@@ -54,10 +55,13 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	err = json.Unmarshal(body, &itemsDto)
 
 	if err != nil {
-		return itemsDto, e.NewBadRequestApiError("error in unmarshal")
+		fmt.Println(err)
+		return itemsDto, e.NewInternalServerApiError("error in unmarshal", err)
+
 	}
 
 	itemsDto = response.Response.Docs
+	fmt.Println(itemsDto)
 	return itemsDto, nil
 
 }

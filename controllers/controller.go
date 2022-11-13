@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/aaraya0/arq-software/arq-sw-2/dtos"
@@ -23,6 +24,7 @@ func NewController(service services.Service) *Controller {
 func (ctrl *Controller) Get(c *gin.Context) {
 	item, apiErr := ctrl.service.Get(c.Param("id"))
 	if apiErr != nil {
+		fmt.Println(apiErr)
 		c.JSON(apiErr.Status(), apiErr)
 		return
 	}
@@ -32,6 +34,7 @@ func (ctrl *Controller) Get(c *gin.Context) {
 func (ctrl *Controller) Insert(c *gin.Context) {
 	var item dtos.ItemDTO
 	if err := c.BindJSON(&item); err != nil {
+		fmt.Println(err)
 		apiErr := e.NewBadRequestApiError(err.Error())
 		c.JSON(apiErr.Status(), apiErr)
 		return
@@ -39,6 +42,7 @@ func (ctrl *Controller) Insert(c *gin.Context) {
 
 	item, apiErr := ctrl.service.Insert(item)
 	if apiErr != nil {
+		fmt.Println(apiErr)
 		c.JSON(apiErr.Status(), apiErr)
 		return
 	}
@@ -48,14 +52,17 @@ func (ctrl *Controller) Insert(c *gin.Context) {
 }
 
 func (ctrl *Controller) GetQuery(c *gin.Context) {
+
 	var itemsDto dtos.ItemsDTO
 	query := c.Param("searchQuery")
 
 	itemsDto, err := ctrl.service.GetQuery(query)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, itemsDto)
+		fmt.Println(err)
+		apiErr := e.NewBadRequestApiError(err.Error())
+		c.JSON(apiErr.Status(), apiErr)
+		return
 	}
-
 	c.JSON(http.StatusOK, itemsDto)
-
+	return
 }
