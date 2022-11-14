@@ -78,7 +78,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 async function getItems(){
-  let query=cookies.get("busqueda_limpia")
+ let query=cookies.get("busqueda_limpia")
   
   return await fetch("http://localhost:8090/search/"+query).then(response => response.json())
 }
@@ -115,9 +115,7 @@ function showItems(items){
     <div>
       <a className="description">{parseField(item.description)}</a>
     </div>
-    <div className="sellerBlock">
-      <a className="seller">{parseField(item.seller)}</a>
-    </div>
+    
    </div>
  )
 }
@@ -125,7 +123,7 @@ function showItems(items){
 
 
 
-function Home() {
+function Results() {
   const [items, setItems] = useState([])
   const [needItems, setNeedItems] = useState(true)
  
@@ -155,4 +153,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Results;

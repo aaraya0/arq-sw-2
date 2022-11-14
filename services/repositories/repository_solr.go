@@ -42,7 +42,7 @@ func NewSolrClient(host string, port int, collection string) *SolrClient {
 func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 	var response dtos.SolrResponseDto
 	var itemsDto dtos.ItemsDTO
-	url := "http://localhost:8983/solr/publicaciones/select?" + query + "=&defType=lucene&omitHeader=true&indent=true&q.op=OR&q=*%3A*"
+	url := "http://localhost:8983/solr/publicaciones/select?indent=true&omitHeader=true&q.op=OR&q=title%3A%22" + query + "%22%0Adescription%3A%22" + query + "%22%0Acity%3A%22" + query + "%22%0Astate%3A%22" + query + "%22"
 	fmt.Println(url)
 	q, err := http.Get(url)
 	if err != nil {
