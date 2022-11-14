@@ -33,7 +33,10 @@ function Search(){
   
   
 const renderForm = (
+
+  
     <div id="cover">
+  
   <form method="get" action="">
     <div class="tb">
       <div class="td">
@@ -52,7 +55,14 @@ const renderForm = (
       return (
       <div className="app">
       <div className="search-form">
-
+      <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3 class="animate-charcter">Bienes Raices</h3>
+      <img id="logo" src="img/tree-and-roots.png"></img>
+    </div>
+  </div>
+</div>
       {renderForm}
 
       </div>

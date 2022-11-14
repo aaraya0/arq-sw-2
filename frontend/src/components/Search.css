@@ -10,7 +10,7 @@
   
   body {
     margin: 0;
-    background-color: #ffd8d8;
+    background-color: #fff8dbeb;
   }
   
   .tb {
@@ -25,7 +25,7 @@
   
   input,
   button {
-    color: #fff;
+    color: #fff8dbeb;
     font-family: Nunito;
     padding: 0;
     margin: 0;
@@ -38,12 +38,12 @@
     top: 50%;
     left: 0;
     right: 0;
-    width: 550px;
+    width: 700px;
     padding: 35px;
     margin: -83px auto 0 auto;
-    background-color: #ff7575;
+    background-color: #48792a;
     border-radius: 20px;
-    box-shadow: 0 10px 40px #ff7c7c, 0 0 0 20px #ffffffeb;
+    box-shadow: 0 10px 40px #2a631b, 0 0 0 20px #fff8dbeb;
     transform: scale(0.6);
   }
   
@@ -59,7 +59,7 @@
   }
   
   input[type="text"]::placeholder {
-    color: #e16868;
+    color: #fff8dbeb;
   }
   
   #s-cover {
@@ -83,7 +83,7 @@
     height: 43px;
     margin-top: 0;
     border-width: 15px;
-    border: 15px solid #fff;
+    border: 15px solid #fff8dbeb;
     background-color: transparent;
     border-radius: 50%;
     transition: 0.5s ease all;
@@ -110,7 +110,7 @@
     right: 0;
     width: 45px;
     height: 15px;
-    background-color: #fff;
+    background-color: #fff8dbeb;
     border-radius: 10px;
     transform: rotateZ(0);
     transition: 0.5s ease all;
@@ -121,7 +121,7 @@
     width: 67px;
     height: 15px;
     border-width: 0;
-    background-color: #fff;
+    background-color: #fff8dbeb;
     border-radius: 20px;
   }
   
@@ -146,6 +146,46 @@
   #s-cover:hover button span:after {
     right: -6px;
     width: 40px;
-    background-color: #fff;
+    background-color: #fff8dbeb;
   }
   
+  .animate-charcter
+{
+   
+  background-image: linear-gradient(
+    10deg,
+    #10501a 0%,
+    #396235 29%,
+    #48792a 67%,
+    #23af4d 100%
+  );
+ text-shadow:  0 10px 40px #2a631b;
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff8dbeb;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display:flex;
+  position: absolute;
+  margin-top: 120px;
+  margin-left: 350px;
+      font-size: 80px;
+      font-family:nunito;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+#logo{
+  width: 100px;
+position: absolute;
+margin-top: 125px;
+margin-left: 840px;
+filter: drop-shadow(5px 5px 5px #2a631b);}
