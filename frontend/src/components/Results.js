@@ -1,6 +1,6 @@
 
 import React, { useState , useEffect} from "react";
-
+import "./Results.css";
 import Cookies from "universal-cookie";
 
 
@@ -74,7 +74,7 @@ function Results() {
   return (
     <div className="home">
       <div className="topnavHOME">
-      
+      <h1>PROPIEDADES DISPONIBLES</h1>
     {showItems(items)}
         </div>
 
