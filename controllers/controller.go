@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/aaraya0/arq-software/arq-sw-2/dtos"
 	services "github.com/aaraya0/arq-software/arq-sw-2/services"
@@ -55,6 +56,7 @@ func (ctrl *Controller) GetQuery(c *gin.Context) {
 
 	var itemsDto dtos.ItemsDTO
 	query := c.Param("searchQuery")
+	query = strings.ReplaceAll(query, "+", "%20")
 
 	itemsDto, err := ctrl.service.GetQuery(query)
 	if err != nil {

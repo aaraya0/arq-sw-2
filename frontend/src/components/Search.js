@@ -17,14 +17,16 @@ async function SearchByQuery(){
     let item = a[1];
     let b=item.split("=")
     item=b[1]
-    let c= item.split("+")
+    cookies.set("busqueda_limpia", item)
+    /*let c= item.split("+")
 
     for (let i = 0; i < c.length; i++){
-
-        chain =`${chain}`+`${c[i]} `;
+        if (i!=0){
+          chain =`${chain}`+`%20`+`${c[i]}`;
+        }
         cookies.set("busqueda_limpia", chain)
 
-    }
+    }*/
     gopath("/results")
 }
 function Search(){
