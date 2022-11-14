@@ -81,12 +81,6 @@ func (serv *ServiceImpl) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiError) {
 	}
 	fmt.Println(fmt.Sprintf("Inserted item in distCache: %v", result))
 	serv.solr.Update()
-	/*apiErr2 := serv.solr.Update()
-	if apiErr2 != nil {
-		fmt.Println(fmt.Sprintf("Error inserting item in solr: %v", apiErr2))
-		return result, nil
-	}
-	fmt.Println(fmt.Sprintf("Inserted item in solr: %v", result))*/
 
 	return result, nil
 }

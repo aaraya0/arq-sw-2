@@ -49,9 +49,20 @@ func (sc *SolrClient) GetQuery(query string) (dtos.ItemsDTO, e.ApiError) {
 		fmt.Println(err)
 		return itemsDto, e.NewInternalServerApiError("error hacendo query a solr", err)
 	}
-	var body []byte
+	/*var body []byte
 	q.Body.Read(body)
-	err = json.Unmarshal(body, &response)
+	err = json.Unmarshal(body, &response)*/
+	body, err := ioutil.ReadAll(q.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	qr := string(body)
+	log.Printf(qr)
+	json.Marshal(qr)
+
+	json_bytes := []byte(qr)
+
+	json.Unmarshal(json_bytes, &response)
 
 	if err != nil {
 		fmt.Println(err)

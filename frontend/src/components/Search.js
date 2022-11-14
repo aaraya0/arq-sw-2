@@ -21,7 +21,7 @@ async function SearchByQuery(){
 
     for (let i = 0; i < c.length; i++){
 
-        chain = `${chain} `+`${c[i]} `;
+        chain =`${chain}`+`${c[i]} `;
         cookies.set("busqueda_limpia", chain)
 
     }
