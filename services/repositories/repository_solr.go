@@ -127,7 +127,7 @@ func (sc *SolrClient) Update() error {
 			//baseURL := "http://localhost:8983"
 			//client := solr.NewJSONClient(baseURL)
 			docs := []solr.M{
-				{"id": msg, "title": info.Title, "description": info.Description, "city": info.City, "state": info.State, "image": info.Image},
+				{"id": msg, "title": info.Title, "description": info.Description, "city": info.City, "state": info.State, "image": info.Image, "seller": info.Seller},
 			}
 			buf := &bytes.Buffer{}
 			error = json.NewEncoder(buf).Encode(docs)

@@ -36,15 +36,12 @@ function showItems(items){
   return items.map((item) =>
 
    <div obj={item} key={item.id} className="item">
+    <img id="imagen" src={`img/${item.image}`}></img>
+    <a id="tituloitem">{parseField(item.title)}</a>
     
-    <a className="title">{parseField(item.title)}</a>
-    
-    <div>
-      <a className="location">{parseField(item.city)}</a>
-     
-    </div>
-    <div>
-      <a className="description">{parseField(item.description)}</a>
+    <div id="info">
+      <div id="location">{parseField(item.city)}</div>
+      <div id="description">{parseField(item.description)}</div>
     </div>
     
    </div>
@@ -74,7 +71,7 @@ function Results() {
   return (
     <div className="home">
       <div className="topnavHOME">
-      <h1>PROPIEDADES DISPONIBLES</h1>
+      <h1 id="titulogrande">PROPIEDADES DISPONIBLES</h1>
     {showItems(items)}
         </div>
 
