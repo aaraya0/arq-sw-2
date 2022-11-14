@@ -92,6 +92,7 @@ func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiErr
 		Vendedor:    item.Vendedor,
 	})
 	item.Id = fmt.Sprintf(result.InsertedID.(primitive.ObjectID).Hex())
+
 	conn, err := amqp.Dial("amqp://user:password@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -114,6 +115,21 @@ func (repo *RepositoryMongoDB) Insert(item dtos.ItemDTO) (dtos.ItemDTO, e.ApiErr
 	if err != nil {
 		return dtos.ItemDTO{}, e.NewInternalServerApiError(fmt.Sprintf("error inserting item %s", item.Id), err)
 	}
+	/*go func(){
+	nombreArchivoSalida:= item.Id+".png"
+	respuesta, err := http.Get(url)
+	if err!=nil{
+		return  err
+	}
+	defer respuesta.Body.Close()
+	archivoSalida, err:= os.Create(nombreArchivoSalida)
+	if err!=nil{
+		return err
+	}
+	defer archivoSalida.Close()
+	_, err:= io.Copy(archivoSalida, respuesta.Body)
 
+	return err
+	}()*/
 	return item, nil
 }

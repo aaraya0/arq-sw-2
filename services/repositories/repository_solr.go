@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+
 	"strings"
 
 	"github.com/aaraya0/arq-software/arq-sw-2/dtos"
@@ -99,6 +102,7 @@ func (sc *SolrClient) Update() error {
 
 	go func() {
 		for d := range msgs {
+
 			log.Printf("Received message %s", d.Body)
 			msg := string(d.Body)
 			//solucionar
@@ -137,6 +141,22 @@ func (sc *SolrClient) Update() error {
 			_, error = sc.Client.Update(ctx, collection, solr.JSON, buf)
 
 			error = sc.Client.Commit(ctx, collection)
+			nombreArchivoSalida := msg + ".png"
+			respuesta, err := http.Get(info.Image)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			defer respuesta.Body.Close()
+			archivoSalida, err := os.Create(nombreArchivoSalida)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			defer archivoSalida.Close()
+			_, error2 := io.Copy(archivoSalida, respuesta.Body)
+
+			if err != nil {
+				log.Fatalln(error2)
+			}
 
 		}
 	}()
